@@ -2,9 +2,9 @@ import React from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 
 import './App.scss'
-import NavBar from '../components/NavBar'
-import MyList from './MyList'
-import Home from './Home'
+import NavBar from '../../components/NavBar/NavBar'
+import MyList from '../MyList/MyList'
+import Home from '../Home/Home'
 
 function App(): JSX.Element {
   return (
