@@ -1,8 +1,6 @@
-import { IListItemProps } from '../../components/ListItem/ListItem'
+import { IUser } from '../../type.d'
 
-export default async function fetchUser(
-  id: string | number
-): Promise<IListItemProps> {
+export default async function fetchUser(id: string | number): Promise<IUser> {
   const response = await window.fetch(`https://reqres.in/api/users/${id}`, {
     method: 'GET',
     headers: {
@@ -11,7 +9,7 @@ export default async function fetchUser(
   })
 
   type JSONResponse = {
-    data?: IListItemProps
+    data?: IUser
     errors?: Array<{ message: string }>
   }
   const { data, errors }: JSONResponse = await response.json()

@@ -10,7 +10,7 @@ import {
 } from '@mui/material'
 
 import fetchUser from './UserFetcher'
-import { IListItemProps } from '../../components/ListItem/ListItem'
+import { IUser } from '../../type.d'
 
 export interface IValues {
   [key: string]: string
@@ -22,7 +22,7 @@ export interface IErrors {
 
 export interface IFormState {
   values: IValues
-  user?: IListItemProps
+  user?: IUser
   errors: IErrors
   submitSuccess?: boolean
 }
@@ -44,10 +44,7 @@ export default class MyForm extends React.Component<unknown, IFormState> {
     }
   }
 
-  private handleValueChange = (
-    key: string,
-    value: string | IListItemProps
-  ): void => {
+  private handleValueChange = (key: string, value: string): void => {
     const values: IValues = this.state?.values
     Object.assign(values, { [key]: value })
     this.setState({ values, submitSuccess: undefined })
@@ -115,7 +112,7 @@ export default class MyForm extends React.Component<unknown, IFormState> {
 
   private async submitForm(): Promise<boolean> {
     fetchUser(this.state?.values?.id)
-      .then((user: IListItemProps) => {
+      .then((user: IUser) => {
         this.setState({ user })
       })
       .catch((error: Error) => {
@@ -142,7 +139,7 @@ export default class MyForm extends React.Component<unknown, IFormState> {
             <FormControl>
               <TextField
                 error={!!this.state?.errors?.id}
-                id="outlined-error-helper-text"
+                id="id"
                 label="ID"
                 value={this.state?.values?.id}
                 helperText="ID should be a number."
@@ -152,7 +149,7 @@ export default class MyForm extends React.Component<unknown, IFormState> {
             <FormControl>
               <TextField
                 error={!!this.state?.errors?.email}
-                id="outlined-error-helper-text"
+                id="email"
                 label="Email"
                 value={this.state?.values?.email}
                 helperText="Please input correct format for email."
@@ -176,8 +173,8 @@ export default class MyForm extends React.Component<unknown, IFormState> {
           {this.state?.submitSuccess === false && this.haveErrors() && (
             <Alert severity="error">
               The form is invalid.
-              {this.getErrors()?.map((error) => (
-                <div>{error}</div>
+              {this.getErrors()?.map((error, index) => (
+                <div key={index}>{error}</div>
               ))}
             </Alert>
           )}

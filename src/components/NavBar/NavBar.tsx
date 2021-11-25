@@ -24,6 +24,11 @@ function NavBar(): JSX.Element {
             Form Demo
           </NavLink>
         </li>
+        <li className="nav-bar__item">
+          <NavLink className="link" to="/my-redux">
+            Redux Demo
+          </NavLink>
+        </li>
       </ul>
     </nav>
   )

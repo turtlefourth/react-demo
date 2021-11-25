@@ -1,16 +1,9 @@
 import * as React from 'react'
 import { styled } from '@mui/material/styles'
-import { Grid, Paper } from '@mui/material'
+import { Button, Grid, Paper } from '@mui/material'
+import { IUser } from '../../type.d'
 
 import './ListItem.scss'
-
-export interface IListItemProps {
-  id: string
-  email: string
-  first_name: string
-  last_name: string
-  avatar: string
-}
 
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
@@ -18,12 +11,12 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }))
 
-export default class ListItem extends React.Component<IListItemProps> {
-  public static defaultProps = {
-    first_name: '-',
-    last_name: '-',
-  }
+interface IExtendedUser extends IUser {
+  editable?: boolean
+  handleEdit?: (event: React.MouseEvent<HTMLButtonElement>) => void
+}
 
+export default class ListItem extends React.Component<IExtendedUser> {
   getName(): string {
     return `${this.props.first_name} ${this.props.last_name}`
   }
@@ -38,6 +31,15 @@ export default class ListItem extends React.Component<IListItemProps> {
           <div className="list-item__content">
             <div className="content__header">{this.getName()}</div>
             <div className="content__sub-header">{this.props.email}</div>
+            {this.props.editable && (
+              <Button
+                className="content__action"
+                variant="outlined"
+                onClick={this.props.handleEdit}
+              >
+                Edit
+              </Button>
+            )}
           </div>
         </Item>
       </Grid>

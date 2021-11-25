@@ -1,11 +1,12 @@
 import * as React from 'react'
 
-import ListItem, { IListItemProps } from '../../components/ListItem/ListItem'
+import ListItem from '../../components/ListItem/ListItem'
+import { IUser } from '../../type.d'
 import { Grid } from '@mui/material'
 import fetchList from './ListFetcher'
 
 interface IMyListStates {
-  items: IListItemProps[]
+  items: IUser[]
   loading: boolean
   error: boolean
 }
@@ -23,7 +24,7 @@ export default class MyList extends React.Component<unknown, IMyListStates> {
 
   componentDidMount(): void {
     fetchList(1)
-      .then((items: IListItemProps[]) =>
+      .then((items: IUser[]) =>
         this.setState({
           items,
           loading: false,
@@ -51,7 +52,7 @@ export default class MyList extends React.Component<unknown, IMyListStates> {
       <>
         <h3>This is a list of users</h3>
         <Grid container className="user-list" spacing={2}>
-          {this.state?.items?.map((item: IListItemProps) => (
+          {this.state?.items?.map((item: IUser) => (
             <ListItem key={item.id} {...item} />
           ))}
         </Grid>
