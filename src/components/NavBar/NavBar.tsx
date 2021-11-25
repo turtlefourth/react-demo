@@ -19,6 +19,11 @@ function NavBar(): JSX.Element {
             List Demo
           </NavLink>
         </li>
+        <li className="nav-bar__item">
+          <NavLink className="link" to="/my-form">
+            Form Demo
+          </NavLink>
+        </li>
       </ul>
     </nav>
   )

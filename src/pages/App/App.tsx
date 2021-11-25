@@ -6,6 +6,7 @@ import { Container } from '@mui/material'
 
 import NavBar from '../../components/NavBar/NavBar'
 import MyList from '../MyList/MyList'
+import MyForm from '../MyForm/MyForm'
 import Home from '../Home/Home'
 
 function App(): JSX.Element {
@@ -16,6 +17,7 @@ function App(): JSX.Element {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/my-list" element={<MyList />} />
+          <Route path="/my-form" element={<MyForm />} />
         </Routes>
       </Container>
     </Router>
