@@ -1,0 +1,10 @@
+.content__header {
+  font-weight: bold;
+  margin: 0.25em 0;
+}
+
+.list-item {
+  &__avatar img {
+    border-radius: 50%;
+  }
+}

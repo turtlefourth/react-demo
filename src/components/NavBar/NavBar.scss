@@ -1,0 +1,30 @@
+@import '../../utils/colors/colors';
+
+.app-logo {
+  height: 2rem;
+  margin: -10% 0 -10% -0.5rem;
+  width: 2rem;
+}
+
+.nav-bar {
+  align-items: center;
+  background-color: $main-color;
+  display: flex;
+
+  &__item {
+    list-style: none;
+
+    .link {
+      align-items: center;
+      background-color: $main-color;
+      color: $white;
+      display: flex;
+      padding: 1em;
+      text-decoration: none;
+
+      &.active, &:hover {
+        background-color: $active-background-color;
+      }
+    }
+  }
+}

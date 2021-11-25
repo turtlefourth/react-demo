@@ -1,5 +1,8 @@
 import * as React from 'react'
-import ListItem, { IListItemProps } from '../components/ListItem'
+
+import ListItem, { IListItemProps } from '../../components/ListItem/ListItem'
+import { Grid } from '@mui/material'
+import fetchList from './ListFetcher'
 
 interface IMyListStates {
   items: IListItemProps[]
@@ -8,20 +11,25 @@ interface IMyListStates {
 }
 
 export default class MyList extends React.Component<unknown, IMyListStates> {
-  constructor() {
-    super({})
+  constructor(props = {}) {
+    super(props)
+  }
+
+  state = {
+    items: [],
+    loading: true,
+    error: false,
   }
 
   componentDidMount(): void {
-    fetch('https://reqres.in/api/users?page=1')
-      .then((response) => response.json())
-      .then((response) =>
+    fetchList(1)
+      .then((items: IListItemProps[]) =>
         this.setState({
-          items: response.data,
+          items,
           loading: false,
         })
       )
-      .catch((error: any) => {
+      .catch((error: Error) => {
         this.setState({
           loading: false,
           error: true,
@@ -29,13 +37,24 @@ export default class MyList extends React.Component<unknown, IMyListStates> {
         console.log(error)
       })
   }
+
   public render(): JSX.Element {
+    if (this.state?.loading) {
+      return <span>Loading...</span>
+    }
+
+    if (this.state?.error) {
+      return <span>Error to load data</span>
+    }
+
     return (
       <>
         <h3>This is a list of users</h3>
-        {this.state?.items?.map((item) => (
-          <ListItem key={item.id} {...item} />
-        ))}
+        <Grid container className="user-list" spacing={2}>
+          {this.state?.items?.map((item: IListItemProps) => (
+            <ListItem key={item.id} {...item} />
+          ))}
+        </Grid>
       </>
     )
   }
